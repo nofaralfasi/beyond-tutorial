@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <title>Beyond message board</title>
+    <style>
+      .author,
+      .eom {
+        color: grey;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Beyond message board</h1>
+      <div class="newfrm">
+        <p class="newmsg">New message:</p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Post">
+        </form>
+    </div>
+    </header>
+    <main>
+      <ol>
+      {% for message in messages %}
+        <li class="message">
+          <header class="author">
+            Posted by {{ message.author }} at
+            <time datetime="{{ message.date }}">{{ message.date }}</time>
+          </header>
+          <p>{{ message.text }}</p>
+        </li>
+      {% endfor %}
+      </ol>
+      <p class="eom">(End of messages)</p>
+    </main>
+  </body>
+</html>
